@@ -52,7 +52,6 @@ angular.module('bl.analyze.solar.surface')
         'ng-options="item.value as item.label for item in ranges"></select>',
       '</div>'].join(''),
     link: function(scope, element, attrs) {
-
     }
   };
 });
