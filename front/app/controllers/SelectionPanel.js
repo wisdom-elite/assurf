@@ -4,13 +4,7 @@ angular.module('bl.analyze.solar.surface')
     'SourceSelectionEventService', 'SourceNotification', 'kmService',
     function ($scope, $modal, $filter, solarTagService, powerService, energyService, weatherService,
               SourceSelectionEventService, SourceNotification, kmService) {
-      // Init scope variables
-      //$scope.tzname = new Date().toString().match(/\(([A-Za-z\s].*)\)/)[1];
-      /*$scope.tzname = new Date().toLocaleString('en-Us',
-          {hour12:false, hour:'2-digit', timeZoneName: 'long'}
-      ).replace(/^\d\d/, '').trim();*/
 
-      //$scope.tzname=getTimezoneName();
       $scope.today= new Date();
 
       $scope.powerInfo = {
@@ -108,7 +102,6 @@ angular.module('bl.analyze.solar.surface')
             if (scope.selected) {
               facility.countSelectedChilds++;
             }
-            // ToDo: Node selection/deselection
           });
 
           facility.selected = childrenStatusSum;
@@ -150,8 +143,6 @@ angular.module('bl.analyze.solar.surface')
         powerService
           .watchCurrentPower(function (data) {
             console.log('currentPower info:', data);
-            // We will use `assurf:power` for the first time only
-            // after that we will show total sum of power from `assurf:sources` for the Current Power kpi
             if ($scope.powerInfo.current < 0) {
               angular.extend($scope.powerInfo, data);
             }
@@ -223,7 +214,6 @@ angular.module('bl.analyze.solar.surface')
             if ($scope.selectedFacilities.length - 1 === 0) {
               source.selected = !source.selected;   // restore origin status
 
-              //alert('Sorry, but you can\'t deselect whole sources.');
               targetSelector = '#' + sourceType + '-' + source.id;
               (new SourceNotification(targetSelector)).showNotification();
 
@@ -234,7 +224,6 @@ angular.module('bl.analyze.solar.surface')
             if ($scope.selectedNodes.length - countNodesGoingToBeDeselected  === 0) {
               source.selected = !source.selected;   // restore origin status
 
-              //alert('Sorry, but you can\'t deselect whole sources.');
               targetSelector = '#' + sourceType + '-' + source.id;
               (new SourceNotification(targetSelector)).showNotification();
 
@@ -305,7 +294,6 @@ angular.module('bl.analyze.solar.surface')
 
       $scope.toggleSelectAllSource = function () {
         $scope.isSelectAll = !$scope.isSelectAll;
-        //console.time('toggleSelectAllSource');
 
         angular.forEach($scope.facilities, function (facility) {
           setSourceSelectionRecursively(facility, $scope.isSelectAll);
@@ -317,7 +305,6 @@ angular.module('bl.analyze.solar.surface')
         }
 
         $scope.getSelectedSources();
-        //console.timeEnd('toggleSelectAllSource');
         SourceSelectionEventService
           .broadcast($scope.selectedFacilities, $scope.selectedScopes, $scope.selectedNodes)
           .resetMainStageChecking();

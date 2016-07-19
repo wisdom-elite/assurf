@@ -50,8 +50,6 @@ angular.module('bl.analyze.solar.surface')
       xAxis: { startOnTick: true }
     }
   })
-  /*.controller('facilityDetailsController', ['$scope', '$modalInstance', '$timeout', 'facilityDetailsService',
-   function ($scope, $modalInstance, $timeout, facilityDetailsService) {*/
   .controller('facilityDetailsController',
   ['$scope', '$modalInstance', '$timeout', '$filter', '$interpolate', '$http',
     'moment', 'solarTagService', 'selectedFacility', 'fdChartConfigs', 'kmService',
